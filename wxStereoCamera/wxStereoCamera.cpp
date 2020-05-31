@@ -688,11 +688,11 @@ void Frame::Display(const uint8_t ID)
    }
 
    if(ID == ID_LEFT_CAMERA){
-      cv::rotate(src,src,cv::ROTATE_90_COUNTERCLOCKWISE);
+      //cv::rotate(src,src,cv::ROTATE_90_COUNTERCLOCKWISE);
       L_Cam = src.clone();
    }
    else if(ID == ID_RIGHT_CAMERA){
-      cv::rotate(src,src,cv::ROTATE_90_COUNTERCLOCKWISE);
+      //cv::rotate(src,src,cv::ROTATE_90_COUNTERCLOCKWISE);
       R_Cam = src.clone();
    }
 
@@ -927,8 +927,8 @@ void Frame::InitStereoCamera()
    fs["T"] >> T;
    fs.release();
 
-   //cv::Size img_size(800,600);
-   cv::Size img_size(600,800);
+   cv::Size img_size(800,600);
+   //cv::Size img_size(600,800);
    cv::Rect roi1, roi2;
    cv::stereoRectify( M1, D1, M2, D2, img_size, R, T, R1, R2, P1, P2, Q, cv::CALIB_ZERO_DISPARITY, -1, img_size, &roi1, &roi2 );
 
@@ -1121,8 +1121,8 @@ void Frame::SGBM(cv::Mat &dst)
    int sgbmWinSize = 13;
    int cn = L_Cam.channels();
 
-   //cv::Size img_size(800,600);
-   cv::Size img_size(600,800);
+   cv::Size img_size(800,600);
+   //cv::Size img_size(600,800);
    int numberOfDisparities = ((img_size.width/8) + 15) & -16;
    //numberOfDisparities = 176;
 
