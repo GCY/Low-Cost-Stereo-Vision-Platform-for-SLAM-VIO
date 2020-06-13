@@ -1,5 +1,7 @@
 # Low-Cost-Stereo-Vision-Platform-for-SLAM-VIO
 
+![v1.3](https://github.com/GCY/Low-Cost-Stereo-Vision-Platform-for-SLAM-VIO/blob/master/res/v1.3.png?raw=true)
+
 ![diagram](https://github.com/GCY/Low-Cost-Stereo-Vision-Platform-for-SLAM-VIO/blob/master/res/diagram.png?raw=true)
 
 
