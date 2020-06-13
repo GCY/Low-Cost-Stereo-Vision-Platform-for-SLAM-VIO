@@ -255,6 +255,12 @@ void setup() {
     sensor.startContinuous(50);
   }
 
+  pinMode(LASER1,OUTPUT);
+  pinMode(LASER2,OUTPUT);
+/*
+  digitalWrite(LASER1,HIGH);
+  digitalWrite(LASER2,HIGH);
+*/
 #elif RIGHT_CAMERA
   accelgyro.initialize();
   if(!accelgyro.testConnection()){

@@ -556,6 +556,124 @@ static esp_err_t led_handler(httpd_req_t *req){
     return httpd_resp_send(req, NULL, 0);    
 }
 
+static esp_err_t laser1_handler(httpd_req_t *req){
+    char*  buf;
+    size_t buf_len;
+    char variable[32] = {0,};
+    char value[32] = {0,};
+
+    buf_len = httpd_req_get_url_query_len(req) + 1;
+    if (buf_len > 1) {
+        buf = (char*)malloc(buf_len);
+        if(!buf){
+            httpd_resp_send_500(req);
+            return ESP_FAIL;
+        }
+        if (httpd_req_get_url_query_str(req, buf, buf_len) == ESP_OK) {
+            if (httpd_query_key_value(buf, "var", variable, sizeof(variable)) == ESP_OK &&
+                httpd_query_key_value(buf, "val", value, sizeof(value)) == ESP_OK) {
+            } else {
+                free(buf);
+                httpd_resp_send_404(req);
+                return ESP_FAIL;
+            }
+        } else {
+            free(buf);
+            httpd_resp_send_404(req);
+            return ESP_FAIL;
+        }
+        free(buf);
+    } else {
+        httpd_resp_send_404(req);
+        return ESP_FAIL;
+    }
+
+    int val = atoi(value);
+    sensor_t * s = esp_camera_sensor_get();
+    int res = 0;
+
+
+    if(!strcmp(variable, "on")) {
+      if(val){
+        pinMode(LASER1, OUTPUT);
+        digitalWrite(LASER1, HIGH);  
+      }
+      else{
+        pinMode(LASER1, OUTPUT);
+        digitalWrite(LASER1, LOW);  
+      }
+    }
+    else {
+        res = -1;
+    }
+
+    if(res){
+        return httpd_resp_send_500(req);
+    }
+
+    httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
+    return httpd_resp_send(req, NULL, 0);    
+}
+
+static esp_err_t laser2_handler(httpd_req_t *req){
+    char*  buf;
+    size_t buf_len;
+    char variable[32] = {0,};
+    char value[32] = {0,};
+
+    buf_len = httpd_req_get_url_query_len(req) + 1;
+    if (buf_len > 1) {
+        buf = (char*)malloc(buf_len);
+        if(!buf){
+            httpd_resp_send_500(req);
+            return ESP_FAIL;
+        }
+        if (httpd_req_get_url_query_str(req, buf, buf_len) == ESP_OK) {
+            if (httpd_query_key_value(buf, "var", variable, sizeof(variable)) == ESP_OK &&
+                httpd_query_key_value(buf, "val", value, sizeof(value)) == ESP_OK) {
+            } else {
+                free(buf);
+                httpd_resp_send_404(req);
+                return ESP_FAIL;
+            }
+        } else {
+            free(buf);
+            httpd_resp_send_404(req);
+            return ESP_FAIL;
+        }
+        free(buf);
+    } else {
+        httpd_resp_send_404(req);
+        return ESP_FAIL;
+    }
+
+    int val = atoi(value);
+    sensor_t * s = esp_camera_sensor_get();
+    int res = 0;
+
+
+    if(!strcmp(variable, "on")) {
+      if(val){
+        pinMode(LASER2, OUTPUT);
+        digitalWrite(LASER2, HIGH);  
+      }
+      else{
+        pinMode(LASER2, OUTPUT);
+        digitalWrite(LASER2, LOW);  
+      }
+    }
+    else {
+        res = -1;
+    }
+
+    if(res){
+        return httpd_resp_send_500(req);
+    }
+
+    httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
+    return httpd_resp_send(req, NULL, 0);    
+}
+
 static esp_err_t cmd_handler(httpd_req_t *req){
     char*  buf;
     size_t buf_len;
@@ -777,6 +895,20 @@ void startCameraServer(){
         .user_ctx  = NULL
     };    
 
+    httpd_uri_t laser1_uri = {
+        .uri       = "/laser1",
+        .method    = HTTP_GET,
+        .handler   = laser1_handler,
+        .user_ctx  = NULL
+    };    
+
+    httpd_uri_t laser2_uri = {
+        .uri       = "/laser2",
+        .method    = HTTP_GET,
+        .handler   = laser2_handler,
+        .user_ctx  = NULL
+    };         
+
     httpd_uri_t capture_uri = {
         .uri       = "/capture",
         .method    = HTTP_GET,
@@ -816,6 +948,8 @@ void startCameraServer(){
         httpd_register_uri_handler(camera_httpd, &cmd_uri);
         httpd_register_uri_handler(camera_httpd, &servo_uri);
         httpd_register_uri_handler(camera_httpd, &led_uri);
+        httpd_register_uri_handler(camera_httpd, &laser1_uri);
+        httpd_register_uri_handler(camera_httpd, &laser2_uri);
         httpd_register_uri_handler(camera_httpd, &status_uri);
         httpd_register_uri_handler(camera_httpd, &ToF_uri);
         httpd_register_uri_handler(camera_httpd, &IMU_uri);
