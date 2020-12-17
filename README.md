@@ -42,4 +42,4 @@ make
  ```
 
 ## Reference
- - [ESP32 CAM MJPEG Stream Decoder and Control Library](https://github.com/GCY/ESP32-CAM-MJPEG-Stream-Decoder-and-Control-Library/edit/master/README.md)
+ - [ESP32 CAM MJPEG Stream Decoder and Control Library](https://github.com/GCY/ESP32-CAM-MJPEG-Stream-Decoder-and-Control-Library)
