@@ -40,3 +40,6 @@ make
  ```cpp
  Build App/Win10/wxStereoCamera/wxStereoCamera.sln with Visual Studio Community 2019
  ```
+
+## Reference
+ - [ESP32 CAM MJPEG Stream Decoder and Control Library](https://github.com/GCY/ESP32-CAM-MJPEG-Stream-Decoder-and-Control-Library/edit/master/README.md)
